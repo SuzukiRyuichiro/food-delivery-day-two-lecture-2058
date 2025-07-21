@@ -4,10 +4,11 @@ class Router
     @customers_controller = customers_controller
     @running = true
   end
- 
+
   def run
     while @running
-      choice = display_menu
+      display_menu
+      choice = get_choice
       print `clear`
       action(choice)
     end
@@ -26,6 +27,9 @@ class Router
     puts "4 - Add a customer"
     puts "9 - Quit"
     print "> "
+  end
+
+  def get_choice
     gets.chomp.to_i
   end
 
@@ -36,7 +40,6 @@ class Router
     when 3 then @customers_controller.list
     when 4 then @customers_controller.add
 
-   
     when 9 then @running = false
     else
       puts "Try again..."
