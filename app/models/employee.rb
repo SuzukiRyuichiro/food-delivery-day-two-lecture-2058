@@ -1,5 +1,6 @@
 class Employee
-  attr_reader :role, :id, :username, :password
+  attr_accessor :id
+  attr_reader :role, :username, :password
 
   def initialize(attributes = {})
     @id = attributes[:id]
