@@ -17,6 +17,7 @@ class SessionsController
     if employee && password == employee.password
       # if it matches continue with the app
       @sessions_view.logged_in
+      return employee
     else
       # if it doesn't, display that you got it wrong
       @sessions_view.wrong_credentials

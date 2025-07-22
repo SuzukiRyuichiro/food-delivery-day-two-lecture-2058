@@ -8,27 +8,60 @@ class Router
 
   def run
     while @running
-      @sessions_controller.login
-      # authenticate the user (sessions controller#login)
+      @current_user = @sessions_controller.login
+      while @current_user
+        # authenticate the user (sessions controller#login)
 
-      display_menu
-      choice = get_choice
-      print `clear`
-      action(choice)
+        # if the authenticated user is rider
+        if @current_user.rider?
+          # display rider menu
+          display_rider_menu
+          # get choice
+          choice = gets.chomp.to_i
+          # route to correct controller
+          rider_action(choice)
+        else
+          # if the authenticated user is manager
+          # display manager menu
+          display_manager_menu
+          # get choice
+          choice = gets.chomp.to_i
+          # route to correct controller
+          manager_action(choice)
+        end
+
+      end
     end
   end
 
   private
 
-  def display_menu
+  def display_rider_menu
     puts "------------------------------"
-    puts "------------ MENU ------------"
+    puts "------ RIDER MENU ------------"
     puts "------------------------------"
     puts "What do you want to do"
     puts "1 - List all meals"
     puts "2 - Add a meal"
     puts "3 - List all customers"
     puts "4 - Add a customer"
+    puts "Some other rider stuff"
+    puts "8 - Log out"
+    puts "9 - Quit"
+    print "> "
+  end
+
+  def display_manager_menu
+    puts "------------------------------"
+    puts "---- MANAGER MENU ------------"
+    puts "------------------------------"
+    puts "What do you want to do"
+    puts "1 - List all meals"
+    puts "2 - Add a meal"
+    puts "3 - List all customers"
+    puts "4 - Add a customer"
+    puts "Some other manager stuff"
+    puts "8 - Log out"
     puts "9 - Quit"
     print "> "
   end
@@ -37,16 +70,43 @@ class Router
     gets.chomp.to_i
   end
 
-  def action(choice)
+  def rider_action(choice)
     case choice
     when 1 then @meals_controller.list
     when 2 then @meals_controller.add
     when 3 then @customers_controller.list
     when 4 then @customers_controller.add
 
-    when 9 then @running = false
+    when 8 then logout
+    when 9 then quit
     else
       puts "Try again..."
     end
+  end
+
+  def manager_action(choice)
+    case choice
+    when 1 then @meals_controller.list
+    when 2 then @meals_controller.add
+    when 3 then @customers_controller.list
+    when 4 then @customers_controller.add
+
+    when 8 then logout
+    when 9 then quit
+    else
+      puts "Try again..."
+    end
+  end
+
+  def logout
+    # Unset the current user
+    @current_user = nil
+  end
+
+  def quit
+    # log out the user
+    logout
+    # Set the running to false
+    @running = false
   end
 end
