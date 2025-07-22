@@ -45,7 +45,8 @@ class Router
     puts "2 - Add a meal"
     puts "3 - List all customers"
     puts "4 - Add a customer"
-    puts "Some other rider stuff"
+    puts "5 - Mark order as delivered"
+    puts "6 - List all my undelivered orders"
     puts "8 - Log out"
     puts "9 - Quit"
     print "> "
@@ -60,7 +61,8 @@ class Router
     puts "2 - Add a meal"
     puts "3 - List all customers"
     puts "4 - Add a customer"
-    puts "Some other manager stuff"
+    puts "5 - Add a new order"
+    puts "6 - List all undelivered orders"
     puts "8 - Log out"
     puts "9 - Quit"
     print "> "
@@ -76,6 +78,8 @@ class Router
     when 2 then @meals_controller.add
     when 3 then @customers_controller.list
     when 4 then @customers_controller.add
+    # when 5 then @orders_controller.list_my_undelivered_orders(@current_user)
+    # when 6 then @orders_controller.mark_as_delivered
 
     when 8 then logout
     when 9 then quit
@@ -90,6 +94,8 @@ class Router
     when 2 then @meals_controller.add
     when 3 then @customers_controller.list
     when 4 then @customers_controller.add
+    # when 5 then @orders_controller.add
+    # when 6 then @orders_controller.list_undelivered_orders
 
     when 8 then logout
     when 9 then quit
