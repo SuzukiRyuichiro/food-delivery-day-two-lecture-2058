@@ -1,12 +1,18 @@
-# require_relative 'app/models/employee'
+require_relative 'app/repositories/customer_repository'
+require_relative 'app/repositories/meal_repository'
 require_relative 'app/repositories/employee_repository'
+require_relative 'app/repositories/order_repository'
 
-youssef = Employee.new(id: 1, username: 'youssef', password: '123123', role: 'rider')
-p youssef.rider?
+customers_csv_file_path = File.join(__dir__, 'data/customers.csv')
+customer_repository = CustomerRepository.new(customers_csv_file_path)
 
+meals_csv_file_path = File.join(__dir__, 'data/meals.csv')
+meal_repository = MealRepository.new(meals_csv_file_path)
 
-# csv_file_path = File.join(__dir__, 'data/employees.csv')
-# employee_repository = EmployeeRepository.new(csv_file_path)
+employees_csv_file_path = File.join(__dir__, 'data/employees.csv')
+employee_repository = EmployeeRepository.new(employees_csv_file_path)
 
-# # pp employee_repository.find(1)
-# pp employee_repository.find_by_username('richard')
+orders_csv_file_path = File.join(__dir__, 'data/orders.csv')
+order_repository = OrderRepository.new(orders_csv_file_path, meal_repository, customer_repository, employee_repository)
+
+pp order_repository
