@@ -8,4 +8,5 @@ require_relative 'app/repositories/employee_repository'
 csv_file_path = File.join(__dir__, 'data/employees.csv')
 employee_repository = EmployeeRepository.new(csv_file_path)
 
-pp employee_repository
+# pp employee_repository.find(1)
+pp employee_repository.find_by_username('richard')
