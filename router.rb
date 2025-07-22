@@ -38,15 +38,11 @@ class Router
 
   def display_rider_menu
     puts "------------------------------"
-    puts "------ RIDER MENU ------------"
+    puts "------ 🛵 RIDER MENU 🛵 -------"
     puts "------------------------------"
     puts "What do you want to do"
-    puts "1 - List all meals"
-    puts "2 - Add a meal"
-    puts "3 - List all customers"
-    puts "4 - Add a customer"
-    puts "5 - Mark order as delivered"
-    puts "6 - List all my undelivered orders"
+    puts "1 - Mark order as delivered"
+    puts "2 - List all my undelivered orders"
     puts "8 - Log out"
     puts "9 - Quit"
     print "> "
@@ -54,7 +50,7 @@ class Router
 
   def display_manager_menu
     puts "------------------------------"
-    puts "---- MANAGER MENU ------------"
+    puts "----👩‍💼 MANAGER MENU 👩‍💼 --------"
     puts "------------------------------"
     puts "What do you want to do"
     puts "1 - List all meals"
@@ -74,12 +70,8 @@ class Router
 
   def rider_action(choice)
     case choice
-    when 1 then @meals_controller.list
-    when 2 then @meals_controller.add
-    when 3 then @customers_controller.list
-    when 4 then @customers_controller.add
-    # when 5 then @orders_controller.list_my_orders(@current_user)
-    # when 6 then @orders_controller.mark_as_delivered
+    # when 1 then @orders_controller.list_my_orders(@current_user)
+    # when 2 then @orders_controller.mark_as_delivered
 
     when 8 then logout
     when 9 then quit
