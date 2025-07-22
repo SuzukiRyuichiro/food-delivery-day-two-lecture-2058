@@ -1,8 +1,9 @@
 class Router
-  def initialize(meals_controller, customers_controller, sessions_controller)
+  def initialize(meals_controller, customers_controller, sessions_controller, orders_controller)
     @meals_controller = meals_controller
     @customers_controller = customers_controller
     @sessions_controller = sessions_controller
+    @orders_controller = orders_controller
     @running = true
   end
 
@@ -41,8 +42,8 @@ class Router
     puts "------ 🛵 RIDER MENU 🛵 -------"
     puts "------------------------------"
     puts "What do you want to do"
-    puts "1 - Mark order as delivered"
-    puts "2 - List all my undelivered orders"
+    puts "1 - List all my undelivered orders"
+    puts "2 - Mark order as delivered"
     puts "8 - Log out"
     puts "9 - Quit"
     print "> "
@@ -70,8 +71,8 @@ class Router
 
   def rider_action(choice)
     case choice
-    # when 1 then @orders_controller.list_my_orders(@current_user)
-    # when 2 then @orders_controller.mark_as_delivered
+    when 1 then @orders_controller.list_my_orders(@current_user)
+    when 2 then @orders_controller.mark_as_delivered(@current_user)
 
     when 8 then logout
     when 9 then quit
@@ -86,8 +87,8 @@ class Router
     when 2 then @meals_controller.add
     when 3 then @customers_controller.list
     when 4 then @customers_controller.add
-    # when 5 then @orders_controller.add
-    # when 6 then @orders_controller.list_undelivered_orders
+    when 5 then @orders_controller.add
+    when 6 then @orders_controller.list_undelivered_orders
 
     when 8 then logout
     when 9 then quit

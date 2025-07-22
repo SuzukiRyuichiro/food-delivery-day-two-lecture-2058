@@ -14,6 +14,36 @@ class OrderRepository
     load_csv if File.exist?(@csv_file_path)
   end
 
+  def create(order) # expect instance of Order
+    # Assign the order with next id
+    order.id = @next_id
+    # Push the order into @orders array
+    @orders << order
+    # increment the next id
+    @next_id += 1
+    # save the csv
+    save_csv
+  end
+
+  def undelivered_orders
+    # return all undelivered orders
+    @orders.reject { |order| order.delivered? }
+  end
+
+  def my_orders(employee)
+    # Select all undelivered orders
+    orders = undelivered_orders
+    # Select all orders assigned to the given employee
+    orders.select { |order| order.employee == employee }
+  end
+
+  def mark_as_delivered(order)
+    # Switch the @delivered to true
+    order.deliver!
+    # save to CSV
+    save_csv
+  end
+
   private
 
   def load_csv
@@ -36,5 +66,19 @@ class OrderRepository
     end
 
     # determine the next_id
+    @next_id = @orders.last.id + 1 unless @orders.empty?
+  end
+
+  def save_csv
+    # Open the file
+    CSV.open(@csv_file_path, 'wb') do |csv|
+      # Add the header
+      csv << ["id", "delivered", "meal_id", "customer_id", "employee_id"]
+      # Iterate over @orders array
+      @orders.each do |order|
+        # save each element into the row
+        csv << [order.id, order.delivered?, order.meal.id, order.customer.id, order.employee.id]
+      end
+    end
   end
 end
